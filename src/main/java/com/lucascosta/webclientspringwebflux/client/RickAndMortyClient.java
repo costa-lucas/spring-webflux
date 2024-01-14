@@ -1,6 +1,7 @@
 package com.lucascosta.webclientspringwebflux.client;
 
 import com.lucascosta.webclientspringwebflux.response.CharacterResponse;
+import com.lucascosta.webclientspringwebflux.response.EpisodeResponse;
 import com.lucascosta.webclientspringwebflux.response.LocationResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -36,5 +37,15 @@ public class RickAndMortyClient {
                 .accept(APPLICATION_JSON)
                 .retrieve()
                 .bodyToMono(LocationResponse.class);
+    }
+
+    public Mono<EpisodeResponse> findEpisodeById(String id){
+        log.info("Buscando os episodios com o id [{}]", id);
+        return webClient
+                .get()
+                .uri("/episode/"+ id)
+                .accept(APPLICATION_JSON)
+                .retrieve()
+                .bodyToMono(EpisodeResponse.class);
     }
 }

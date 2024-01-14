@@ -2,6 +2,7 @@ package com.lucascosta.webclientspringwebflux.controller;
 
 import com.lucascosta.webclientspringwebflux.client.RickAndMortyClient;
 import com.lucascosta.webclientspringwebflux.response.CharacterResponse;
+import com.lucascosta.webclientspringwebflux.response.EpisodeResponse;
 import com.lucascosta.webclientspringwebflux.response.LocationResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,5 +26,10 @@ public class RickAndMortyController {
     @GetMapping("/location/{id}")
     public Mono<LocationResponse> getLocationById (@PathVariable String id){
         return rickAndMortyClient.findAndLocationById(id);
+    }
+
+    @GetMapping("/episode/{id}")
+    public Mono<EpisodeResponse> getEpisodeById (@PathVariable String id){
+        return rickAndMortyClient.findEpisodeById(id);
     }
 }

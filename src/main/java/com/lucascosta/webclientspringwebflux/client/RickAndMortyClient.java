@@ -2,10 +2,12 @@ package com.lucascosta.webclientspringwebflux.client;
 
 import com.lucascosta.webclientspringwebflux.response.CharacterResponse;
 import com.lucascosta.webclientspringwebflux.response.EpisodeResponse;
+import com.lucascosta.webclientspringwebflux.response.ListOfEpisodeResponse;
 import com.lucascosta.webclientspringwebflux.response.LocationResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON;
@@ -47,5 +49,15 @@ public class RickAndMortyClient {
                 .accept(APPLICATION_JSON)
                 .retrieve()
                 .bodyToMono(EpisodeResponse.class);
+    }
+
+    public Flux<ListOfEpisodeResponse> getAllEpsodes(){
+        log.info("Listando todos os episodios");
+        return webClient
+                .get()
+                .uri("/episode/")
+                .accept(APPLICATION_JSON)
+                .retrieve()
+                .bodyToFlux(ListOfEpisodeResponse.class);
     }
 }
